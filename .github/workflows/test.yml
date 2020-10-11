@@ -12,6 +12,9 @@ jobs:
         run: go version
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
+      - name: run wire
+        run: $(go env GOPATH)/bin/wire
+        working-directory: ./golang
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
