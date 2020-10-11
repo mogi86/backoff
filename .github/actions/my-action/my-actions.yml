@@ -1,0 +1,5 @@
+inputs:
+  setup:
+    description: 'Setup golang'
+    required: false
+    default: '1'
