@@ -1,7 +1,7 @@
 name: Test
 on: [push]
 jobs:
-  setup:
+  lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,21 +15,6 @@ jobs:
       - name: run wire
         run: $(go env GOPATH)/bin/wire
         working-directory: ./golang
-  lint:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
-        with:
-          go-version: '^1.13.1'
-      - name: check
-        run: go version
-      #- name: install wire
-      #  run: go get -u github.com/google/wire/cmd/wire
-      #- name: run wire
-      #  run: $(go env GOPATH)/bin/wire
-      #  working-directory: ./golang
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
@@ -38,17 +23,14 @@ jobs:
           args: --enable-all --disable testpackage
   test:
     runs-on: ubuntu-latest
-    needs: setup
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
           go-version: '^1.13.1'
-      #- name: install wire
-      #  run: go get -u github.com/google/wire/cmd/wire
-      #- name: run wire
-      #  run: $(go env GOPATH)/bin/wire
-      #  working-directory: ./golang
+      - name: run wire
+        run: $(go env GOPATH)/bin/wire
+        working-directory: ./golang
       - name: Run test
         run: go test -v ./
         working-directory: ./golang
