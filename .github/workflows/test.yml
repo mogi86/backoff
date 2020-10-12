@@ -24,10 +24,16 @@ jobs:
       - name: Run lint
         run: >-
           golangci-lint run
-          --enable-all
-          --disable testpackage
-          --disable gochecknoglobals
-          --disable godot
+          --disable-all
+          --enable=gofmt
+          --enable=vet
+          --enable=gocyclo
+          --enable=golint
+          --enable=errcheck
+          --enable=misspell
+          --enable=wsl
+          --enable=lll
+          --enable=goimports
   test:
     runs-on: ubuntu-latest
     strategy:
