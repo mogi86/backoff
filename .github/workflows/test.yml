@@ -17,7 +17,11 @@ jobs:
       - name: check GOPATH
         run: echo $GOPATH
       - name: install wire
-        run: go get -u github.com/google/wire/cmd/wire
+        run: |
+          go get -u github.com/google/wire/cmd/wire
+          echo "::add-path::${GOPATH}/bin"
+        env:
+          GOPATH: /tmp/go
       - name: generate
         run: make setup
         working-directory: ./golang
