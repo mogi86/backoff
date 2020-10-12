@@ -14,8 +14,8 @@ jobs:
         run: echo $GOPATH
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
-      - name: run wire
-        run: go generate ./...
+      - name: generate
+        run: make setup
         working-directory: ./golang
         #run: $(go env GOPATH)/bin/wire
         #working-directory: ./golang
