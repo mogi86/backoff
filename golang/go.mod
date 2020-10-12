@@ -1,6 +1,6 @@
 module github.com/mogi86/go_backoff
 
-go 1.12
+go 1.15
 
 require (
 	github.com/google/wire v0.4.0

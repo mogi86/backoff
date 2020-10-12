@@ -13,8 +13,10 @@ jobs:
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
       - name: run wire
-        run: $(go env GOPATH)/bin/wire
+        run: go generate ./...
         working-directory: ./golang
+        #run: $(go env GOPATH)/bin/wire
+        #working-directory: ./golang
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v2
         with:
@@ -24,6 +26,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     strategy:
+      # To run test for multiple version of Golang
       matrix:
         go: [ '1.15', '1.14', '1.13' ]
     steps:
