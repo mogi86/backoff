@@ -22,6 +22,8 @@ jobs:
           echo "::add-path::${GOPATH}/bin"
         env:
           GOPATH: /tmp/go
+      - name: check GOPATH2
+        run: echo $GOPATH
       - name: check PATH
         run: echo $PATH
       - name: generate
