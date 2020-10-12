@@ -62,6 +62,8 @@ jobs:
           go-version: ${{ matrix.go }}
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
+      - name: which wire
+        run: which wire
       - name: run wire
         run: $(go env GOPATH)/bin/wire
         working-directory: ./golang
