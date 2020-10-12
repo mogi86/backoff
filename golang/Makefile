@@ -1,4 +1,6 @@
+GOPATH := $(shell go env GOPATH)
+
 .PHONY: setup
 setup:
-	#go generate wire.go
+	$(GOPATH)/bin/wire
 	go generate ./...
