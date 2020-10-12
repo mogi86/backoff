@@ -17,12 +17,15 @@ jobs:
         working-directory: ./golang
         #run: $(go env GOPATH)/bin/wire
         #working-directory: ./golang
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v2
-        with:
-          version: v1.29
-          working-directory: ./golang
-          args: --enable-all --disable testpackage
+      - name: install golangci-lint
+        run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.31.0
+      - name: Run lint
+        run: >-
+          golangci-lint run
+          --enable-all
+          --disable testpackage
+          --disable gochecknoglobals
+          --disable godot
   test:
     runs-on: ubuntu-latest
     strategy:
