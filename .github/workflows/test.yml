@@ -16,7 +16,7 @@ jobs:
         run: go version
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
-      - name: which wire
+      - name: which wire2
         run: which wire
       - name: generate
         run: make setup
