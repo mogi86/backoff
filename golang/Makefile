@@ -1,4 +1,4 @@
 .PHONY: setup
 setup:
-	go generate wire.go
-	# go generate ./...
+	#go generate wire.go
+	go generate ./...
