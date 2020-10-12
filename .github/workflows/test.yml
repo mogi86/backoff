@@ -12,6 +12,9 @@ jobs:
         run: go version
       - name: check GOPATH
         run: echo $GOPATH
+      - name: check files
+        run: ls -la
+        working-directory: ./golang
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
       - name: run wire
