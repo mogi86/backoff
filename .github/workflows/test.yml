@@ -14,12 +14,10 @@ jobs:
           go-version: '^1.15'
       - name: check
         run: go version
-      - name: check GOPATH
-        run: echo $GOPATH
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
-      - name: check PATH
-        run: echo $PATH
+      - name: which wire
+        run: which wire
       - name: generate
         run: make setup
         working-directory: ./golang
