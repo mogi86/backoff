@@ -4,6 +4,10 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
+      #- name: set PATH
+      #  run: echo "::add-path::${GOPATH}/bin"
+      #  env:
+      #    GOPATH: /tmp/go
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
@@ -12,23 +16,34 @@ jobs:
         run: go version
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
-      - name: run wire
-        run: $(go env GOPATH)/bin/wire
+      - name: which wire2
+        run: which wire
+      - name: generate
+        run: make setup
         working-directory: ./golang
+        #run: $(go env GOPATH)/bin/wire
+        #working-directory: ./golang
       - name: install golangci-lint
         run: curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.31.0
       - name: Run lint
         run: >-
           golangci-lint run
-          --enable-all
-          --disable testpackage
-          --disable gochecknoglobals
-          --disable godot
+          --disable-all
+          --enable=gofmt
+          --enable=vet
+          --enable=gocyclo
+          --enable=golint
+          --enable=errcheck
+          --enable=misspell
+          --enable=wsl
+          --enable=lll
+          --enable=goimports
   test:
     runs-on: ubuntu-latest
     strategy:
+      # To run test for multiple version of Golang
       matrix:
-        go: [ '1.15', '1.14', '1.13' ]
+        go: [ '1.15' ]
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
@@ -36,6 +51,8 @@ jobs:
           go-version: ${{ matrix.go }}
       - name: install wire
         run: go get -u github.com/google/wire/cmd/wire
+      - name: which wire
+        run: which wire
       - name: run wire
         run: $(go env GOPATH)/bin/wire
         working-directory: ./golang
