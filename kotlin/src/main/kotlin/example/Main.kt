@@ -1,9 +1,10 @@
 package example
 
-import example.data.*
+import example.data.Human
 
 fun main() {
-    val human = Human("Taro", 20)
+    val age = 20
+    val human = Human("Taro", age)
 
     println(human.toString())
 }
